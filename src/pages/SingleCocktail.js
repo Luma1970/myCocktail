@@ -32,6 +32,10 @@ const SingleCocktail = () => {
           const measures = [
             strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15,
           ]
+          const ricetta = ingredients.reduce((ricetta, dose, index) => {
+            ricetta.push([dose], measures[index], `${dose ? '-' : ''}`)
+            return ricetta
+          }, [])
           const newCocktail = {
             name,
             image,
@@ -41,6 +45,7 @@ const SingleCocktail = () => {
             instructions,
             ingredients,
             measures,
+            ricetta,
           }
           setCocktail(newCocktail)
         } else {
@@ -70,39 +75,40 @@ const SingleCocktail = () => {
       instructions,
       ingredients,
       measures,
+      ricetta,
     } = cocktail
     return (
       <section className='section cocktail-section'>
-        <Link to='/' className='btn btn-primary'>
-          torna a casa
-        </Link>
         <h2 className="section-title">{name}</h2>
         <div className="drink">
           <img src={image} alt={name} />
+          <div className="drink-info">
+            <p>
+              <span className="drink-data">Nome:</span> {name}
+            </p>
+            <p>
+              <span className="drink-data">Categoria:</span> {category}
+            </p>
+            <p>
+              <span className="drink-data">Informazioni:</span> {info}
+            </p>
+            <p>
+              <span className="drink-data">Bicchiere giusto:</span> {glass}
+            </p>
+            <p>
+              <span className="drink-data">Istruzioni:</span> {instructions}
+            </p>
+            <p>
+              <span className="drink-data">Ingredienti:</span>
+              {ricetta.map((item, index) => {
+                return item ? <span key={index}>{item} </span> : null
+              })}
+            </p>
+          </div>
         </div>
-        <div className="drink-info">
-          <p>
-            <span className="drink-data">Nome:</span> {name}
-          </p>
-          <p>
-            <span className="drink-data">Categoria:</span> {category}
-          </p>
-          <p>
-            <span className="drink-data">Informazioni:</span> {info}
-          </p>
-          <p>
-            <span className="drink-data">Bicchiere giusto:</span> {glass}
-          </p>
-          <p>
-            <span className="drink-data">Istruzioni:</span> {instructions}
-          </p>
-          <p>
-            <span className="drink-data">Ingredienti:</span>
-            {ingredients.map((item, index) => {
-              return item ? <span key={index}>{item} </span> : null
-            })}
-          </p>
-        </div>
+        <Link to='/' className='btn btn-primary'>
+          torna a casa
+        </Link>
       </section>
     )
   }

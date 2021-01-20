@@ -7,6 +7,8 @@ import SingleCocktail from './pages/SingleCocktail'
 import Error from './pages/Error'
 // import components
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+
 function App() {
   return (
     <Router>
@@ -25,6 +27,7 @@ function App() {
           <Error/>
         </Route>
       </Switch>
+      <Footer />
     </Router>
   )
 }
